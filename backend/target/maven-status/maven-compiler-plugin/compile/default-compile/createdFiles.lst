@@ -1,0 +1,6 @@
+com\example\backend\model\Friend.class
+com\example\backend\model\PasswordResetToken.class
+com\example\backend\repository\FriendRepository.class
+com\example\backend\controller\FriendController.class
+com\example\backend\service\PasswordResetService.class
+com\example\backend\repository\PasswordResetTokenRepository.class
