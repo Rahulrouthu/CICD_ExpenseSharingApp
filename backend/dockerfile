@@ -18,19 +18,27 @@
 
 # ENV DB_HOST=localhost
 # ENV DB_PORT=3306
-# ENV DB_NAME=expense
+# ENV DB_NAME=expenses
 # ENV DB_USERNAME=root
-# ENV DB_PASSWORD=''
+# ENV DB_PASSWORD='Frenchfries@2005'
 
-FROM openjdk:17-jdk-slim
+## -------- Build stage --------
+FROM maven:3.9-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+# Build the application (skip tests for faster builds; remove -DskipTests to run tests)
+RUN mvn -q -DskipTests clean package
 
-# Set the working directory inside the container
+## -------- Runtime stage --------
+FROM eclipse-temurin:17-jre
 WORKDIR /ExpenseWise
 
-# Copy the JAR file into the container
-COPY target/backend-0.0.1-SNAPSHOT.jar /ExpenseWise/backend.jar
+# Copy the built jar from the build stage
+COPY --from=build /app/target/*SNAPSHOT.jar /ExpenseWise/backend.jar
 
-EXPOSE 8080
+# Default Spring Boot port (configured in application.properties)
+EXPOSE 3001
 
-# Run the JAR file
+# Spring Boot will honor SERVER_PORT env var if provided
 ENTRYPOINT ["java", "-jar", "backend.jar"]
