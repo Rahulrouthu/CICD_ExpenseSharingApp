@@ -265,7 +265,7 @@ Ensure you have Docker and Docker Compose installed on your system.
 
 3. **Access the Application:**
    - **Frontend:** Visit `http://localhost:9000` in your browser.
-   - **Backend:** The backend service runs on `http://localhost:3031`.
+   - **Backend:** The backend service runs on `http://localhost:3001`.
    - **Database:** MySQL is exposed on port `3306`.
 
 4. **Shut Down the Containers:**
